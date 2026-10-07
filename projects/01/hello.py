@@ -1,5 +1,5 @@
 print("Hello, World!")
-x = 100
+x = -10
 print(x)
 
 if x < 0:
