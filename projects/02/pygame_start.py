@@ -2,7 +2,8 @@ import pygame
 
 pygame.init()
 screen = pygame.display.set_mode((600, 400))
-image = pygame.image.load("../../assets/player/p1_walk01.png").convert()
+font = pygame.font.Font(None, 50)
+image = font.render("hello, pygame", True, pygame.Color("green"))
 
 while True:
     pygame.event.clear()
