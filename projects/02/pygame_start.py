@@ -8,7 +8,13 @@ while True:
     key_pressed = pygame.key.get_pressed()
     if key_pressed[pygame.K_ESCAPE]:
         break
+<<<<<<< Updated upstream
     pygame.draw.circle(screen, pygame.Color('red'), (300, 200), 30)
+=======
+
+    screen.fill(pygame.Color('black'))
+    pygame.draw.circle(screen, pygame.Color('red'), pygame.mouse.get_pos(), 30)
+>>>>>>> Stashed changes
     pygame.display.update()
 
 pygame.quit()
