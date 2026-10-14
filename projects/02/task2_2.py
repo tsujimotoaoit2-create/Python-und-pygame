@@ -24,7 +24,8 @@ while True:
     pygame.draw.line(screen, pygame.Color('blue'), (mouse_x,0), (mouse_x, 400))
     pygame.draw.line(screen, pygame.Color('blue'), (0,mouse_y), (600, mouse_y)) 
 
-    pygame.draw.ellipse(screen, pygame.Color('red'), (mouse_x + 90, mouse_y - 5, 250 ,50),1)
+    pygame.draw.ellipse(screen, pygame.Color('red'), screen.blit(text_image, (mouse_x + 100, mouse_y))
+    ,1)
 
     screen.blit(text_image, (mouse_x + 100, mouse_y))
     
