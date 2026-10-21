@@ -32,7 +32,7 @@ def main():
     while True:
         should_quit = False
 
-        for event in pygame.event.get():
+b        for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 should_quit = True
             elif event.type == pygame.KEYDOWN:
