@@ -1,5 +1,14 @@
 import pygame
 
+def draw(screen, player_image, text_image, mouse_pos):
+    screen.fill(pygame.Color("black"))
+    screen.blit(player_image, mouse_pos)
+    mouse_x, mouse_y = mouse_pos
+    text_offset_x = 100
+    screen.blit(text_image, (mouse_x + text_offset_x, mouse_y))
+    pygame.display.update()
+
+
 def main():
     pygame.init()
     width, height = 600, 400
@@ -19,13 +28,7 @@ def main():
             break
         mouse_pos = pygame.mouse.get_pos()
 
-        screen.fill(pygame.Color("black"))
-        screen.blit(player_image, mouse_pos)
-
-        mouse_x, mouse_y = mouse_pos
-        text_offset_x = 100
-        screen.blit(text_image, (mouse_x + text_offset_x, mouse_y))
-        pygame.display.update()
+        draw(screen, player_image, text_image, mouse_pos)
 
     pygame.quit()
 
