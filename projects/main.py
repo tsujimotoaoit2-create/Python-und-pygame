@@ -15,13 +15,13 @@ def create_text():
     return text_image
 
 def create_player():
-    player.images = [
-        pygame.image.load("assets/player/p1_walk04.png").convert(),
-        pygame.image.load("assets/player/p1_walk05.png").convert(),
-        pygame.image.load("assets/player/p1_walk06.png").convert(),
-        pygame.image.load("assets/player/p1_walk07.png").convert(),     
+    player_images = [
+        pygame.image.load("../../assets/player/p1_walk04.png").convert(),
+        pygame.image.load("../../assets/player/p1_walk05.png").convert(),
+        pygame.image.load("../../assets/player/p1_walk06.png").convert(),
+        pygame.image.load("../../assets/player/p1_walk07.png").convert(),     
     ]
-    return player.images
+    return player_images
 
 
 
@@ -33,16 +33,18 @@ def draw(screen, player_image, text_image, mouse_pos):
     screen.blit(text_image, (mouse_x + text_offset_x, mouse_y))
     pygame.display.update()
 
-
 def main():
     screen = init_screen()
     text_image = create_text()
     player_images = create_player()
+    clock = pygame.time.Clock()
     frame_index = 0
 
-    player_image = pygame.image.load("../../assets/player/p1_walk01.png").convert()
 
     while True:
+        frames_per_second = 60
+        clock.tick(frames_per_second)
+
         should_quit = False
 
         for event in pygame.event.get():
@@ -58,10 +60,11 @@ def main():
         mouse_pos = pygame.mouse.get_pos()
 
         frame_index +=1
-        animation_index = frame_index % len(player_images)
+        animation_period = 6
+        animation_index = (frame_index // animation_period) % len(player_images)
+        #animation_index = frame_index % len(player_images) clock制限がないバージョンで使う
 
         draw(screen, player_images[animation_index], text_image, mouse_pos)
 
-    pygame.quit()
-
-main()
+if __name__ == "__main__":
+    main()

@@ -14,6 +14,7 @@ def create_text(text, color="green"):
     text_image = font.render(text, antialias, pygame.Color(color))
     return text_image
 
+
 def draw(screen, player_image, text_image, mouse_pos):
     screen.fill(pygame.Color("black"))
     screen.blit(player_image, mouse_pos)
@@ -28,7 +29,7 @@ def main():
     text_image1 = create_text("Hello, World!")
     text_image2 = create_text("Nice to meet you!")
 
-    player_image = pygame.image.load("../../assets/player/p1_walk01.png").convert()
+    player_images = create_player()
 
     while True:
         should_quit = False
@@ -54,4 +55,5 @@ def main():
         
     pygame.quit()
 
-main()
+if __name__ == "__main__":
+    main()
