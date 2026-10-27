@@ -26,9 +26,10 @@ def create_player():
 def draw(screen, player_image, text_image, mouse_pos):
     screen.fill(pygame.Color("black"))
     screen.blit(player_image, mouse_pos)
-    mouse_x, mouse_y = mouse_pos
-    text_offset_x = 100
-    screen.blit(text_image, (mouse_x + text_offset_x, mouse_y))
+    if text_image is not None:
+        mouse_x, mouse_y = mouse_pos
+        text_offset_x = 100
+        screen.blit(text_image, (mouse_x + text_offset_x, mouse_y))
     pygame.display.update()
 
 def main():
@@ -57,12 +58,18 @@ def main():
             break
         mouse_pos = pygame.mouse.get_pos()
 
+        buttons_pressed = pygame.mouse.get_pressed()
+        if buttons_pressed[0]:
+            text_image_shown = text_image
+        else:
+            text_image_shown = None
+
         frame_index +=1
         animation_period = 6
         animation_index = (frame_index // animation_period) % len(player_images)
         #animation_index = frame_index % len(player_images) clock制限がないバージョンで使う
 
-        draw(screen, player_images[animation_index], text_image, mouse_pos)
+        draw(screen, player_images[animation_index], text_image_shown, mouse_pos)
 
 if __name__ == "__main__":
     main()
