@@ -6,13 +6,24 @@ def init_screen():
     screen = pygame.display.set_mode((width, height))
     return screen
 
-def create_text(Phrase, Color):
+def create_text(phrase, color):
     font_size = 50
     font_file = None
     antialias = True
     font = pygame.font.Font(font_file, font_size)
-    text_image = font.render(Phrase, antialias, pygame.Color(Color))
+    text_image = font.render(phrase, antialias, pygame.Color(color))
     return text_image
+
+
+def create_texts():
+    phrases = [
+        ("hello, pygame", "green"),
+        ("You clicked the mouse button!", "blue"),
+        ("Let's make a game!", "white"),
+        ("How are you?", "red"),
+    ]
+    return [create_text(phrase, color) for phrase, color in phrases]
+
 
 def create_player():
     file_path = "../../assets/player/p1_walk{:02}.png"
@@ -34,17 +45,11 @@ def draw(screen, player_image, text_image, mouse_pos):
 
 def main():
     screen = init_screen()
-    Phrases = {
-        "hello, pygame": "green", 
-        "You clicked the mouse button!": "blue", 
-        "Let`s make a game!": "white",
-        "How are you?": "red"}
-    #クリックすると順番に言葉が表示される(辞書型を使って、言葉と色をセットで管理する)
+    text_images = create_texts()
     player_images = create_player()
     clock = pygame.time.Clock()
     frame_index = 0
-
-    clicked_index = 0
+    text_index = 0
 
     while True:
         frames_per_second = 60
@@ -59,23 +64,19 @@ def main():
                     should_quit = True
                 elif event.key == pygame.K_b:
                     pass
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    text_index = (text_index + 1) % len(text_images)
         if should_quit:
             break
         mouse_pos = pygame.mouse.get_pos()
 
-        buttons_pressed = pygame.mouse.get_pressed()
-        if buttons_pressed[0]:
-            clicked_index += 1
-        text_period = 6
-        text_index = (clicked_index//text_period) % len(Phrases)
-        text_image_shown = create_text(list(Phrases.keys())[text_index], list(Phrases.values())[text_index])       
-        #animationの方と同様にマウスをクリックするごとにclicked_indexが増える、それによって表示する言葉が変わる。text_periodを設定することで、クリックしてから次の言葉に変わるまでの間隔を調整できる。
         frame_index +=1
         animation_period = 6
         animation_index = (frame_index // animation_period) % len(player_images)
         #animation_index = frame_index % len(player_images) clock制限がないバージョンで使う
 
-        draw(screen, player_images[animation_index], text_image_shown, mouse_pos)
+        draw(screen, player_images[animation_index], text_images[text_index], mouse_pos)
 
 if __name__ == "__main__":
     main()
