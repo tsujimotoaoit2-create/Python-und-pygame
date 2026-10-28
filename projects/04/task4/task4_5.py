@@ -40,8 +40,7 @@ def main():
     text_image = create_text()
     player_images = create_player()
     clock = pygame.time.Clock()
-    frame_index = 0
-
+    total_distance = 0
 
     while True:
         frames_per_second = 60
@@ -69,15 +68,11 @@ def main():
         else:
             text_image_shown = None
         
-        if mouse_rel != (0,0):
-            frame_index +=1
-
-            i = distance(mouse_rel)
-            animation_period = max(3, 6 - int(i / 10))#animation_oeriodが小さくなるほど動きがはやくなる
-            animation_index = (frame_index // animation_period) % len(player_images)
-            #animation_index = frame_index % len(player_images) clock制限がないバージョンで使う
-        else:
+        if mouse_rel == (0, 0):
             animation_index = 0
+        else:
+            total_distance += distance(mouse_rel)
+            animation_index = int(total_distance / 20) % len(player_images)
 
         draw(screen, player_images[animation_index], text_image_shown, mouse_pos)
 
