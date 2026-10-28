@@ -66,13 +66,12 @@ def main():
         else:
             text_image_shown = None
         
-        if mouse_rel != (0,0):
-            frame_index +=1
+        if mouse_rel == (0, 0):
+            animation_index = 0
+        else:
+            frame_index += 1
             animation_period = 6
             animation_index = (frame_index // animation_period) % len(player_images)
-            #animation_index = frame_index % len(player_images) clock制限がないバージョンで使う
-        else:
-            animation_index = 0
 
         draw(screen, player_images[animation_index], text_image_shown, mouse_pos)
 
