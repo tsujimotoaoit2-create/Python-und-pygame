@@ -25,7 +25,7 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     sould_quit = True
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
+                if event.button == 1 and not particle_is_alive:
                     particle_is_alive = True
                     x, y = event.pos
                     vx = random.uniform(-10, 10)
@@ -44,6 +44,9 @@ def main():
         if particle_is_alive:
             radius = 10
             pygame.draw.circle(screen, pygame.Color("green"), (x, y), radius)
+            if x < 0 or x > width or y > height:
+                particle_is_alive = False
+            
             
         pygame.display.update()
 
