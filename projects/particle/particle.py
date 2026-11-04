@@ -11,11 +11,10 @@ def main():
     clock = pygame.time.Clock()
     p = Particle()
 
-    p.dt = 1.0
-    p.gy = 0.5
-    p.is_alive = False
-    p.x, p.y = 0, 0
-    p.vx, p.vy = 0, 0
+    dt = 1.0
+    gy = 0.5
+    particle_list = []
+    
 
     while True:
         frames_per_second = 60
@@ -29,29 +28,32 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     sould_quit = True
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1 and not p.is_alive:
+                if event.button == 1:
+                    p = Particle()
                     p.is_alive = True
                     p.x, p.y = event.pos
                     p.vx = random.uniform(-10, 10)
                     p.vy = random.uniform(-10, 0)
+                    particle_list.append(p)
 
         if sould_quit:
             break
         
-        if p.is_alive:
-            p.vx += p.gy*p.dt
-            p.x += p.vx*p.dt
-            p.y += p.vy*p.dt
-
-        screen.fill(pygame.Color("black"))
-
-        if p.is_alive:
-            radius = 10
-            pygame.draw.circle(screen, pygame.Color("green"), (p.x, p.y), radius)
+        for p in particle_list:
+            p.vx += gy*dt
+            p.x += p.vx*dt
+            p.y += p.vy*dt
             if p.x < 0 or p.x > width or p.y > height:
                 p.is_alive = False
+
+        particle_list[:] = [p for p in particle_list if p.is_alive]    
+        screen.fill(pygame.Color("black"))
+
+        for p in particle_list:
+            radius = 10
+            pygame.draw.circle(screen, pygame.Color("green"), (p.x, p.y), radius)
             
-            
+        
         pygame.display.update()
 
     pygame.quit()
