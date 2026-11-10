@@ -62,22 +62,20 @@ class AppMain:
             frames_per_second = 60
             clock.tick(frames_per_second)
 
-            sould_quit = False
+            should_quit = False
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    sould_quit = True
+                    should_quit = True
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-                        sould_quit = True
+                        should_quit = True
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     self.add_particle(event.pos, event.button)
-            if sould_quit:
+            if should_quit:
                 break
             
             self.update()
             self.draw()
-            
-            pygame.display.update()
 
         pygame.quit()
 
