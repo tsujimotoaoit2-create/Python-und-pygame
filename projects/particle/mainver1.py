@@ -28,7 +28,7 @@ class AppMain:
         if button == 1:
             vx = random.uniform(-10, 10)
             vy = random.uniform(-10, 0)
-            p = particle.Particle(pos, (vx, vy), self.world)
+            p = particle.Particle(pos, (vx, vy), self.world, postmove_strategy=particle.bounce_on_boundary)
             self.particle_list.append(p)
 
     def run(self):
